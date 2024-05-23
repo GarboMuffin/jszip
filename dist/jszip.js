@@ -1,6 +1,6 @@
 /*!
 
-JSZip v3.11.0 - A JavaScript class for generating and reading zip files
+JSZip v3.11.1 - A JavaScript class for generating and reading zip files
 <http://stuartk.com/jszip>
 
 (c) 2009-2016 Stuart Knightley <stuart [at] stuartk.com>
@@ -2132,7 +2132,7 @@ var GenericWorker = require("./GenericWorker");
 
 // the size of the generated chunks
 // TODO expose this as a public variable
-var DEFAULT_BLOCK_SIZE = 16 * 1024;
+var DEFAULT_BLOCK_SIZE = 64 * 1024;
 
 /**
  * A worker that reads a content and emits chunks.
@@ -2223,10 +2223,10 @@ DataWorker.prototype._tick = function() {
             data = this.data.substring(this.index, nextIndex);
             break;
         case "uint8array":
+        case "nodebuffer":
             data = this.data.subarray(this.index, nextIndex);
             break;
         case "array":
-        case "nodebuffer":
             data = this.data.slice(this.index, nextIndex);
             break;
         }
